@@ -1,19 +1,19 @@
-"use client"
+"use client";
 
-import type React from "react"
+import type React from "react";
 
-import { useState } from "react"
-import Image from "next/image"
-import { Plus, X } from "lucide-react"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
+import { useState } from "react";
+import Image from "next/image";
+import { Plus, X } from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
 interface WebApp {
-  id: string
-  title: string
-  url: string
-  icon: string
+  id: string;
+  title: string;
+  url: string;
+  icon: string;
 }
 
 const defaultApps: WebApp[] = [
@@ -41,31 +41,36 @@ const defaultApps: WebApp[] = [
     url: "https://drive.google.com",
     icon: "https://ssl.gstatic.com/images/branding/product/1x/drive_2020q4_32dp.png",
   },
-]
+];
 
 export default function WebApps() {
-  const [apps, setApps] = useState<WebApp[]>(defaultApps)
-  const [showForm, setShowForm] = useState(false)
-  const [newApp, setNewApp] = useState<Partial<WebApp>>({ title: "", url: "" })
+  const [apps, setApps] = useState<WebApp[]>(defaultApps);
+  const [showForm, setShowForm] = useState(false);
+  const [newApp, setNewApp] = useState<Partial<WebApp>>({ title: "", url: "" });
 
   const handleAddApp = (e: React.FormEvent) => {
-    e.preventDefault()
+    e.preventDefault();
     if (newApp.title && newApp.url) {
-      const icon = new URL(newApp.url).origin + "/favicon.ico"
-      setApps([...apps, { ...newApp, id: Date.now().toString(), icon } as WebApp])
-      setNewApp({ title: "", url: "" })
-      setShowForm(false)
+      const icon = new URL(newApp.url).origin + "/favicon.ico";
+      setApps([
+        ...apps,
+        { ...newApp, id: Date.now().toString(), icon } as WebApp,
+      ]);
+      setNewApp({ title: "", url: "" });
+      setShowForm(false);
     }
-  }
+  };
 
   const handleRemoveApp = (id: string) => {
-    setApps(apps.filter((app) => app.id !== id))
-  }
+    setApps(apps.filter((app) => app.id !== id));
+  };
 
   return (
     <Card className="bg-[#0D1117]/50 border-[#1D2230] h-full flex flex-col">
       <CardHeader className="flex flex-row items-center justify-between py-3 md:py-4">
-        <CardTitle className="text-sm font-medium text-emerald-400">Web Apps</CardTitle>
+        <CardTitle className="text-sm font-medium text-emerald-400">
+          Web Apps
+        </CardTitle>
       </CardHeader>
       <CardContent className="flex-grow flex flex-col">
         <div className="flex flex-wrap gap-4 justify-center mb-4">
@@ -125,7 +130,11 @@ export default function WebApps() {
             />
             <div className="flex gap-2">
               <Button type="submit">Add</Button>
-              <Button type="button" variant="ghost" onClick={() => setShowForm(false)}>
+              <Button
+                type="button"
+                variant="ghost"
+                onClick={() => setShowForm(false)}
+              >
                 Cancel
               </Button>
             </div>
@@ -133,6 +142,5 @@ export default function WebApps() {
         )}
       </CardContent>
     </Card>
-  )
+  );
 }
-
